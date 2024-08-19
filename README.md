@@ -4,17 +4,15 @@ This repository contains the solutions for the Monitoring Analyst Test. It is di
 
 ## Repository Structure
 
-cloudwalktest/
-│
-├── Task 1/
-│   ├── SQL_Query.sql        # SQL query used for Task 1
-│   ├── README.md            # Documentation explaining Task 1
-│
-├── Task 2/
-│   ├── monitoring_script.py # Python script for the real-time monitoring system
-│   ├── README.md            # Documentation explaining Task 2
-│
-└── README.md                # Overview of the entire project
+- **cloudwalktest/**
+  - **Task 1/**
+    - `SQL_Query.sql`: SQL query used for Task 1.
+    - `README.md`: Documentation explaining Task 1.
+  - **Task 2/**
+    - `monitoring_script.py`: Python script for the real-time monitoring system.
+    - `README.md`: Documentation explaining Task 2.
+  - `README.md`: Overview of the entire project.
+
 
 ## Overview
 
