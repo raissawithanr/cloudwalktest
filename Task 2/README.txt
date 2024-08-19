@@ -27,7 +27,7 @@ Usage
 
 2. Run the script:
 
-   python Alert.py
+   python monitoring_script.py
 
 3. The script will process each file, generate alerts for any issues detected, and visualize the results.
 
