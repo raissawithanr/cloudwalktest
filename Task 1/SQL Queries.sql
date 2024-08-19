@@ -70,6 +70,7 @@ SELECT
 FROM 
 	checkout_all;
 
+
 -- Understanding mean deviation of concentration of checkouts
 SELECT 
 	time,
@@ -85,6 +86,7 @@ SELECT
 FROM 
 	concentration_checkout_all;
     
+    
 -- Understanding (c2 - c1) change of quantity of checkouts by hour
 SELECT 
 	time,
@@ -96,6 +98,7 @@ SELECT
 FROM 
 	checkout_all;
 
+
 -- Understanding (c2 - c1) change of concentration of checkouts by hour
 SELECT 
 	time,
@@ -106,6 +109,83 @@ SELECT
     ROUND(perc_avg_last_month_c2 - perc_avg_last_month_c1, 2) AS perc_avg_last_month_dif
 FROM 
 	concentration_checkout_all;
+
+
+-- Today (c2) vs historical checkouts (as quantity of checkouts)
+SELECT 
+	time,
+    today_c2,
+	LEAST(
+		yesterday_c2, 
+		yesterday_c1, 
+		same_day_last_week_c2, 
+		same_day_last_week_c1,
+		avg_last_week_c2,
+		avg_last_week_c1,
+		avg_last_month_c2,
+		avg_last_month_c1
+	) AS min_value,
+	GREATEST(
+		yesterday_c2, 
+		yesterday_c1, 
+		same_day_last_week_c2, 
+		same_day_last_week_c1,
+		avg_last_week_c2,
+		avg_last_week_c1,
+		avg_last_month_c2,
+		avg_last_month_c1
+	) AS max_value,
+    ROUND(
+		((yesterday_c2
+		+ yesterday_c1 
+		+ same_day_last_week_c2 
+		+ same_day_last_week_c1
+		+ avg_last_week_c2
+		+ avg_last_week_c1
+		+ avg_last_month_c2
+		+ avg_last_month_c1) 
+		/ 8), 2) AS average_value
+FROM
+	checkout_all;
+    
+    
+-- Today (c2) vs historical checkouts (as hourly % of total checkouts in a day)
+SELECT 
+	time,
+    perc_today_c2,
+	LEAST(
+		perc_yesterday_c2, 
+		perc_yesterday_c1, 
+		perc_same_day_last_week_c2, 
+		perc_same_day_last_week_c1,
+		perc_avg_last_week_c2,
+		perc_avg_last_week_c1,
+		perc_avg_last_month_c2,
+		perc_avg_last_month_c1
+	) AS perc_min_value,
+	GREATEST(
+		perc_yesterday_c2, 
+		perc_yesterday_c1, 
+		perc_same_day_last_week_c2, 
+		perc_same_day_last_week_c1,
+		perc_avg_last_week_c2,
+		perc_avg_last_week_c1,
+		perc_avg_last_month_c2,
+		perc_avg_last_month_c1
+	) AS perc_max_value,
+    ROUND(
+		((perc_yesterday_c2
+		+ perc_yesterday_c1 
+		+ perc_same_day_last_week_c2 
+		+ perc_same_day_last_week_c1
+		+ perc_avg_last_week_c2
+		+ perc_avg_last_week_c1
+		+ perc_avg_last_month_c2
+		+ perc_avg_last_month_c1) 
+		/ 8), 2) AS perc_average_value
+FROM
+	concentration_checkout_all;
+
 
 -- Drop temporary tables
 DROP TABLE concentration_checkout_all;
