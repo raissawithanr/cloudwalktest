@@ -1,3 +1,15 @@
+-- Table schema
+CREATE TABLE `checkout` (
+  `time` VARCHAR(4) NOT NULL, 
+  `today` INT DEFAULT NULL,
+  `yesterday` INT DEFAULT NULL,
+  `same_day_last_week` INT DEFAULT NULL,
+  `avg_last_week` DOUBLE DEFAULT NULL,
+  `avg_last_month` DOUBLE DEFAULT NULL,
+  PRIMARY KEY (`time`) 
+);
+
+
 -- Temporary table with quantity of checkouts by hour per day
 CREATE TEMPORARY TABLE checkout_all AS
 SELECT
