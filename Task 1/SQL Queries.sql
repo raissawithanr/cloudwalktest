@@ -1,4 +1,4 @@
--- Table schema
+-- Table schema: checkout table to store hourly data
 CREATE TABLE `checkout` (
   `time` VARCHAR(4) NOT NULL, 
   `today` INT DEFAULT NULL,
@@ -9,8 +9,7 @@ CREATE TABLE `checkout` (
   PRIMARY KEY (`time`) 
 );
 
-
--- Temporary table with quantity of checkouts by hour per day
+-- Temporary table to aggregate quantity of checkouts by hour per day
 CREATE TEMPORARY TABLE checkout_all AS
 SELECT
     c1.time,
@@ -32,7 +31,7 @@ LEFT JOIN
     checkout_2 c2 ON c1.time = c2.time;
 
 
--- Temporary table with concentration of checkouts by hour per day
+-- Temporary table to aggregate and calculate concentration of checkouts by hour per day
 CREATE TEMPORARY TABLE concentration_checkout_all AS
 SELECT 
     c1.time,
@@ -66,8 +65,7 @@ LEFT JOIN
 GROUP BY 
     c1.time;
     
-    
--- Understanding mean deviation of quantity of checkouts
+-- Calculate the deviation of quantity of checkouts compared to the average
 SELECT 
 	time,
 	ROUND(today_c2 - time_avg, 2) AS today_c2_dev,
@@ -83,7 +81,7 @@ FROM
 	checkout_all;
 
 
--- Understanding mean deviation of concentration of checkouts
+-- Calculate the deviation of concentration of checkouts compared to the average
 SELECT 
 	time,
 	ROUND(perc_today_c2 - perc_time_avg, 2) AS perc_today_c2_dev,
@@ -99,7 +97,7 @@ FROM
 	concentration_checkout_all;
     
     
--- Understanding (c2 - c1) change of quantity of checkouts by hour
+-- Calculate the difference in checkout quantity between c2 and c1 by hour
 SELECT 
 	time,
     ROUND(today_c2 - yesterday_c2, 2) AS today_c2_dif,
@@ -111,7 +109,7 @@ FROM
 	checkout_all;
 
 
--- Understanding (c2 - c1) change of concentration of checkouts by hour
+-- Calculate the difference in checkout concentration between c2 and c1 by hour
 SELECT 
 	time,
     ROUND(perc_today_c2 - perc_yesterday_c2, 2) AS perc_today_c2_dif,
