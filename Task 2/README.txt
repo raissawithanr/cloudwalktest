@@ -58,8 +58,9 @@ Functions:
 
 Customization
 -------------
-- Threshold: Adjust the `threshold` variable in the `__main__` section to change the sensitivity of the alert system.
 - CSV File Paths: Modify the `transaction_files` list to include the paths to your transaction files.
+- Threshold: Adjust the `threshold` variable in the `__main__` section to change the sensitivity of the alert system.
+- Isolation Forest Sensitivity: Adjust the contamination parameter in the Isolation Forest model to fine-tune the anomaly detection sensitivity.
 
 Limitations
 -----------
